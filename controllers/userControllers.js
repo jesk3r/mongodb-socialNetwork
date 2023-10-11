@@ -32,22 +32,24 @@ module.exports = {
   },
   async updateUser(req, res){
     try{
-        filter = {_id: req.params.postId}
-        update = req.body
+        filter = {_id: req.body._id}
+        update = { username: req.body.username, email: req.body.email}
 
-        const update = await User.findOneAndUpdate(filter, update)
-        res.json(update)
+        const user = await User.findOneAndUpdate(filter, update)
+        res.json(user)
     }catch (err){
+        console.log(err)
         res.status(500).json(err)
     }
   },
   async deleteUser(req,res){
     try{
-        const del = await User.findByIdAndDelete({_id: req.params.postId})
+        const del = await User.findByIdAndDelete({_id: req.body._id})
 
         res.json(del)
     }catch (err){
-        res.status(500).json(err);
+      console.log(err)  
+      res.status(500).json(err);
     }
   },
 
@@ -70,7 +72,7 @@ module.exports = {
     try{
         const user = await User.findOne({_id: req.params.userId})
 
-        user.friends.pull(req.params.friendId)
+        user.friends.pull(req.params.friendsId)
 
         await user.save()
 

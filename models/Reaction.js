@@ -27,7 +27,8 @@ const reactionSchema = new Schema({
 
 function formatedTime(time){
     //format time somewhere here
-    return time
+
+    return time.toDateString()
 }
   
 

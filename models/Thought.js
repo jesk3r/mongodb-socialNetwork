@@ -25,12 +25,12 @@ const thoughtSchema = new mongoose.Schema({
   //make changes to this to be an array of nested documents created with the reaction schema
   reactions: [reactionSchema],
   
-  
 }, { toJSON: { virtuals: true } } );
   
 function formatedTime(time){
   //format time somewhere here
-  return time
+  console.log(time)
+  return time.toDateString()
 }
 
 const virtual = thoughtSchema.virtual('reactionsCount')
