@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
 
-
-const reaction = new mongoose.Schema({
-  reactionID: {
-    type: mongoose.SchemaType.ObjectId,
-    default: ''
-  },
-
+const reactionSchema = new Schema({
+  
   reactionBody: {
     type: String,
     require: 'Must have a reaction body'
@@ -35,7 +31,7 @@ function formatedTime(time){
 }
   
 
-const Thought = mongoose.model('Thought', thoughtSchema)
+
 
   
-module.exports = Thought;
+module.exports = reactionSchema;

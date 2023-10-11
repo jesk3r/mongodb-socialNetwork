@@ -17,11 +17,18 @@ const userSchema = new mongoose.Schema({
     match: [regex, "Please fill a valid email address"],
   },
 
-  thoughts: [{type: Schema.Types.ObjectId, ref:'Thought'}],
+  thoughts: [{type: mongoose.Types.ObjectId, ref:'Thought'}],
 
-  friends: [{type: Schema.Types.ObjectId, ref:'User'}]
-});
+  friends: [{type: mongoose.Types.ObjectId, ref:'User'}]
+}, { toJSON: { virtuals: true } });
   
+const virtual = userSchema.virtual('friendCount')
+
+virtual.get(function() {
+  return this.friends.length
+})
+
+// return this.friends.length;
 
 const User = mongoose.model('User', userSchema)
 

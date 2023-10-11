@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const reactionSchema = require('./Reaction')
 
 var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -12,8 +13,8 @@ const thoughtSchema = new mongoose.Schema({
 
   createAt: {
     type: Date,
-    //add the defualt value
-    //use getter to return a formated time stamp
+    default: Date.now,
+    get: formatedTime
   },
 
   username: {
@@ -22,10 +23,22 @@ const thoughtSchema = new mongoose.Schema({
   },
 
   //make changes to this to be an array of nested documents created with the reaction schema
-  reactions: [{type: Schema.Types.ObjectId, ref:'User'}]
+  reactions: [reactionSchema],
   
-});
   
+}, { toJSON: { virtuals: true } } );
+  
+function formatedTime(time){
+  //format time somewhere here
+  return time
+}
+
+const virtual = thoughtSchema.virtual('reactionsCount')
+
+virtual.get(function() {
+  return this.reactions.length
+})
+
 
 const Thought = mongoose.model('Thought', thoughtSchema)
 

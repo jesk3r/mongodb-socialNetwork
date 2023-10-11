@@ -1,3 +1,6 @@
-const Library = require('./Library');
+const Thought = require('./Thought')
+const User = require('./User')
 
-module.exports = { Library };
+
+
+module.exports = { Thought,User };
